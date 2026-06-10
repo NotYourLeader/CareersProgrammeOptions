@@ -14,10 +14,12 @@
       --ok: #0f8a4b;
       --bad: #b42318;
       --warn: #b26a00;
-      --blue: #d9ecff;
-      --pink: #ffd7ef;
-      --yellow: #fff49a;
-      --green: #dcfce7;
+      --soft-ok: #ecfdf3;
+      --soft-bad: #fff1f0;
+      --soft-warn: #fff8e1;
+      --accent: #2563eb;
+      --pink: #f05ac2;
+      --blue: #a9cdea;
       --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
       --radius: 18px;
     }
@@ -33,37 +35,30 @@
     }
 
     header {
-      padding: 28px 20px 18px;
-      max-width: 1180px;
+      max-width: 1220px;
       margin: 0 auto;
+      padding: 30px 20px 18px;
     }
 
     h1 {
       margin: 0 0 8px;
-      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
       letter-spacing: -0.04em;
     }
 
     .subtitle {
-      max-width: 850px;
+      max-width: 880px;
       color: var(--muted);
       font-size: 1.05rem;
       margin: 0;
     }
 
     main {
-      max-width: 1180px;
+      max-width: 1220px;
       margin: 0 auto;
-      padding: 0 20px 40px;
+      padding: 0 20px 42px;
       display: grid;
       gap: 18px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: minmax(300px, 420px) 1fr;
-      gap: 18px;
-      align-items: start;
     }
 
     .card {
@@ -80,7 +75,80 @@
       padding: 18px 18px 0;
     }
 
-    .card .body { padding: 16px 18px 18px; }
+    .body { padding: 16px 18px 18px; }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1080px;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 11px;
+      vertical-align: top;
+    }
+
+    th:last-child, td:last-child { border-right: none; }
+    tr:last-child td { border-bottom: none; }
+
+    th {
+      text-align: left;
+      background: #edf2f7;
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+    }
+
+    td {
+      min-height: 116px;
+      font-size: 0.98rem;
+    }
+
+    .fixed-pathway {
+      background: #f8fafc;
+      color: #243044;
+    }
+
+    .not-available {
+      background: #fff7fc;
+      border-top: 5px solid var(--pink);
+    }
+
+    .available-choice {
+      background: #f6fbff;
+      border-top: 5px solid var(--blue);
+    }
+
+    .cell-title {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .subject-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 6px;
+    }
+
+    .subject-list li {
+      padding: 3px 0;
+    }
 
     label {
       font-weight: 700;
@@ -88,23 +156,65 @@
       margin-bottom: 7px;
     }
 
-    select, input[type="text"] {
+    select {
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 12px 13px;
-      font-size: 1rem;
+      padding: 11px 12px;
+      font-size: 0.98rem;
       background: white;
       color: var(--ink);
     }
 
-    .form-row { margin-bottom: 14px; }
+    .helper {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
 
-    .quick-buttons {
+    .result {
+      border-radius: 16px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      margin-top: 16px;
+      font-size: 1rem;
+    }
+
+    .result.ok {
+      background: var(--soft-ok);
+      border-color: #b7e4c7;
+      color: #064e2f;
+    }
+
+    .result.bad {
+      background: var(--soft-bad);
+      border-color: #ffc9c2;
+      color: #7a271a;
+    }
+
+    .result.warn {
+      background: var(--soft-warn);
+      border-color: #ffe08a;
+      color: #6d4300;
+    }
+
+    .result strong {
+      display: block;
+      font-size: 1.22rem;
+      margin-bottom: 4px;
+    }
+
+    .selected-line {
+      color: inherit;
+      opacity: 0.85;
+      margin-top: 6px;
+    }
+
+    .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 10px;
+      margin-top: 14px;
     }
 
     button {
@@ -119,394 +229,180 @@
 
     button:hover { background: #f1f5f9; }
 
-    .result {
-      border-radius: 15px;
-      padding: 14px 16px;
-      border: 1px solid var(--line);
-      margin-top: 4px;
+    .note {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 10px;
     }
 
-    .result.ok {
-      background: #ecfdf3;
-      border-color: #b7e4c7;
-      color: #064e2f;
-    }
-
-    .result.bad {
-      background: #fff1f0;
-      border-color: #ffc9c2;
-      color: #7a271a;
-    }
-
-    .result.warn {
-      background: #fff8e1;
-      border-color: #ffe08a;
-      color: #6d4300;
-    }
-
-    .result strong {
-      display: block;
-      font-size: 1.1rem;
-      margin-bottom: 4px;
-    }
-
-    .subject-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 12px;
-    }
-
-    .block {
-      border: 1px solid var(--line);
-      border-radius: 15px;
-      padding: 12px;
-      background: #fff;
-    }
-
-    .block h3 {
-      margin: 0 0 8px;
-      font-size: 1rem;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      padding: 3px 8px;
-      font-size: 0.78rem;
-      background: var(--blue);
-      color: #17446c;
-      white-space: nowrap;
-    }
-
-    .pill.available { background: var(--yellow); color: #3f3300; }
-    .pill.unavailable { background: var(--pink); color: #7a124f; }
-    .pill.core { background: var(--green); color: #14532d; }
-
-    ul {
-      margin: 0;
-      padding-left: 19px;
-    }
-
-    li { margin: 5px 0; }
-
-    .rules {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 12px;
-    }
-
-    .rule {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 12px;
-      background: #f8fafc;
-    }
-
-    .rule strong { display: block; margin-bottom: 4px; }
-
-    .muted { color: var(--muted); }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.94rem;
-      overflow: hidden;
-    }
-
-    th, td {
-      border-bottom: 1px solid var(--line);
-      padding: 10px;
-      text-align: left;
-      vertical-align: top;
-    }
-
-    th { background: #f8fafc; }
-    tr:last-child td { border-bottom: 0; }
-
-    .tag {
-      display: inline-block;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: #eef2ff;
-      font-size: 0.82rem;
-      margin-left: 6px;
-      color: #3730a3;
-    }
-
-    .hidden { display: none !important; }
-
-    @media (max-width: 900px) {
-      .grid { grid-template-columns: 1fr; }
+    @media (max-width: 720px) {
+      header, main { padding-left: 12px; padding-right: 12px; }
+      .body { padding: 14px; }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>CP Subject Combination Checker</h1>
-    <p class="subtitle">Select two subjects to check whether they can be taken together. The rule is simple: two subjects clash if they sit in the same DP block, and pink blocks from the source grid are treated as unavailable to BTEC/CP students.</p>
+    <p class="subtitle">Use the three dropdowns to test whether the student's CP subject choices can be accommodated. Fixed CP components are shown for context; only the available choice blocks are selectable.</p>
   </header>
 
   <main>
-    <section class="grid">
-      <div class="card">
-        <h2>Check a combination</h2>
-        <div class="body">
-          <div class="form-row">
-            <label for="subjectA">Subject 1</label>
-            <select id="subjectA"></select>
-          </div>
-
-          <div class="form-row">
-            <label for="subjectB">Subject 2</label>
-            <select id="subjectB"></select>
-          </div>
-
-          <div id="result" class="result warn">
-            <strong>Choose two subjects</strong>
-            The checker will show whether the combination works.
-          </div>
-
-          <div class="quick-buttons" aria-label="Quick examples">
-            <button type="button" data-a="Biology|D" data-b="Math AI|E">Biology + Math AI</button>
-            <button type="button" data-a="Biology|D" data-b="Chemistry|D">Biology + Chemistry</button>
-            <button type="button" data-a="Economics|F" data-b="Math A&A|E">Economics + Math A&A</button>
-            <button type="button" data-a="Psychology|C" data-b="Math AI|E">Psychology + Math AI</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Available CP/BTEC subject blocks</h2>
-        <div class="body">
-          <div class="subject-list" id="subjectBlocks"></div>
-        </div>
-      </div>
-    </section>
-
     <section class="card">
-      <h2>Rules used by this checker</h2>
-      <div class="body rules">
-        <div class="rule"><strong>1. Same block = clash</strong><span class="muted">A student cannot take two subjects from the same block because they are timetabled at the same time.</span></div>
-        <div class="rule"><strong>2. Pink blocks are unavailable</strong><span class="muted">Block A and Block C are marked as not available to BTEC students in the source grid.</span></div>
-        <div class="rule"><strong>3. DP options for CP are D, E and F</strong><span class="muted">The highlighted options on the right of the source grid are DP Block D, DP Block E and DP Block F.</span></div>
-        <div class="rule"><strong>4. Core/BTEC items are listed separately</strong><span class="muted">BTEC Business, PPS, CE, MOE Arabic, Language and Cultural Studies, Islamic Studies / Study Hall are shown for reference, but the checker focuses on subject combinations.</span></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>All subjects in the source grid</h2>
+      <h2>Horizontal pathway view</h2>
       <div class="body">
-        <table>
-          <thead>
-            <tr><th>Block</th><th>Status</th><th>Subjects</th></tr>
-          </thead>
-          <tbody id="allRows"></tbody>
-        </table>
+        <div class="table-wrap" aria-label="CP subject pathway table">
+          <table>
+            <thead>
+              <tr>
+                <th>Block A</th>
+                <th>Block B</th>
+                <th>Block C</th>
+                <th>Block D</th>
+                <th>Block E</th>
+                <th>Block F</th>
+                <th>Block G</th>
+                <th>Other</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="fixed-pathway not-available">
+                  <span class="cell-title">Fixed / unavailable for choice</span>
+                  <ul class="subject-list">
+                    <li>BTEC Business</li>
+                  </ul>
+                </td>
+                <td class="fixed-pathway not-available">
+                  <span class="cell-title">Fixed / unavailable for choice</span>
+                  <ul class="subject-list">
+                    <li>PPS</li>
+                    <li>Community Engagement</li>
+                    <li>MOE Arabic</li>
+                  </ul>
+                </td>
+                <td class="fixed-pathway not-available">
+                  <span class="cell-title">Fixed / unavailable for choice</span>
+                  <ul class="subject-list">
+                    <li>BTEC Business</li>
+                  </ul>
+                </td>
+                <td class="available-choice">
+                  <label for="blockD">Student choice</label>
+                  <select id="blockD"></select>
+                  <div class="helper">Choose one subject.</div>
+                </td>
+                <td class="available-choice">
+                  <label for="blockE">Student choice</label>
+                  <select id="blockE"></select>
+                  <div class="helper">Choose one subject.</div>
+                </td>
+                <td class="available-choice">
+                  <label for="blockF">Student choice</label>
+                  <select id="blockF"></select>
+                  <div class="helper">Choose one subject.</div>
+                </td>
+                <td class="fixed-pathway not-available">
+                  <span class="cell-title">Fixed / unavailable for choice</span>
+                  <ul class="subject-list">
+                    <li>Language and Cultural Studies</li>
+                    <li>MOE Arabic</li>
+                  </ul>
+                </td>
+                <td class="fixed-pathway not-available">
+                  <span class="cell-title">Fixed / unavailable for choice</span>
+                  <ul class="subject-list">
+                    <li>Islamic Studies</li>
+                    <li>Study Hall</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="actions" aria-label="Quick examples">
+          <button type="button" data-d="Biology" data-e="Math AI" data-f="Chemistry">Biology + Math AI + Chemistry</button>
+          <button type="button" data-d="Physics" data-e="Math A&amp;A" data-f="Chemistry">Physics + Math A&amp;A + Chemistry</button>
+          <button type="button" data-d="ESS" data-e="Math AI" data-f="Visual Arts">ESS + Math AI + Visual Arts</button>
+          <button type="button" data-d="Design" data-e="Math AI" data-f="Business Management">Design + Math AI + Business Management</button>
+          <button type="button" id="clearBtn">Clear choices</button>
+        </div>
+
+        <div id="result" class="result warn">
+          <strong>Choose subjects</strong>
+          The checker will show whether the selected choices can be accommodated.
+        </div>
       </div>
     </section>
   </main>
 
   <script>
-    const blocks = [
-      {
-        id: 'A',
-        name: 'Block A',
-        status: 'unavailable',
-        statusLabel: 'Not available to BTEC',
-        subjects: ['Lang & Lit', 'Lit & Perf']
-      },
-      {
-        id: 'B',
-        name: 'Block B',
-        status: 'reference',
-        statusLabel: 'Language options',
-        subjects: ['Arabic', 'French B', 'French Ab Initio', 'Spanish B', 'Self-taught']
-      },
-      {
-        id: 'C',
-        name: 'Block C',
-        status: 'unavailable',
-        statusLabel: 'Not available to BTEC',
-        subjects: ['Business Management', 'Economics', 'Global Politics', 'Psychology', 'Biology']
-      },
-      {
-        id: 'D',
-        name: 'DP Block D',
-        status: 'available',
-        statusLabel: 'Available CP option',
-        subjects: ['Biology', 'Chemistry', 'Physics', 'ESS', 'Global Politics', 'Computer Science', 'Design']
-      },
-      {
-        id: 'E',
-        name: 'DP Block E',
-        status: 'available',
-        statusLabel: 'Available CP option',
-        subjects: ['Math A&A', 'Math AI']
-      },
-      {
-        id: 'F',
-        name: 'DP Block F',
-        status: 'available',
-        statusLabel: 'Available CP option',
-        subjects: ['Visual Arts', 'Economics', 'Theatre', 'Biology / SEHS', 'Physics', 'Chemistry', 'Business Management']
-      },
-      {
-        id: 'G',
-        name: 'Block G',
-        status: 'core',
-        statusLabel: 'Core / reference',
-        subjects: ['ToK', 'Islamic Studies']
-      },
-      {
-        id: 'CORE',
-        name: 'CP / BTEC core',
-        status: 'core',
-        statusLabel: 'Core / reference',
-        subjects: ['BTEC Business', 'PPS', 'CE', 'MOE Arabic', 'Language and Cultural Studies', 'Islamic Studies / Study Hall']
-      }
-    ];
+    const optionsByBlock = {
+      D: ['Biology', 'Chemistry', 'Physics', 'ESS', 'Global Politics', 'Computer Science', 'Design'],
+      E: ['Math A&A', 'Math AI'],
+      F: ['Visual Arts', 'Economics', 'Theatre', 'Biology', 'Physics', 'Chemistry', 'SEHS', 'Business Management']
+    };
 
-    const selectA = document.getElementById('subjectA');
-    const selectB = document.getElementById('subjectB');
+    const blockD = document.getElementById('blockD');
+    const blockE = document.getElementById('blockE');
+    const blockF = document.getElementById('blockF');
     const result = document.getElementById('result');
-    const subjectBlocks = document.getElementById('subjectBlocks');
-    const allRows = document.getElementById('allRows');
 
-    function subjectKey(subject, blockId) {
-      return `${subject}|${blockId}`;
-    }
-
-    function allOptions() {
-      return blocks.flatMap(block => block.subjects.map(subject => ({ subject, block })));
-    }
-
-    function populateSelect(select) {
-      select.innerHTML = '<option value="">Select a subject</option>';
-      blocks.forEach(block => {
-        const group = document.createElement('optgroup');
-        group.label = `${block.name} — ${block.statusLabel}`;
-        block.subjects.forEach(subject => {
-          const opt = document.createElement('option');
-          opt.value = subjectKey(subject, block.id);
-          opt.textContent = `${subject} (${block.name})`;
-          group.appendChild(opt);
-        });
-        select.appendChild(group);
+    function populateSelect(select, options) {
+      select.innerHTML = '<option value="">No choice selected</option>';
+      options.forEach(subject => {
+        const opt = document.createElement('option');
+        opt.value = subject;
+        opt.textContent = subject;
+        select.appendChild(opt);
       });
     }
 
-    function findSubject(value) {
-      if (!value) return null;
-      const [subject, blockId] = value.split('|');
-      const block = blocks.find(b => b.id === blockId);
-      return block ? { subject, block } : null;
-    }
-
-    function statusClass(status) {
-      if (status === 'available') return 'available';
-      if (status === 'unavailable') return 'unavailable';
-      if (status === 'core') return 'core';
-      return '';
-    }
-
-    function renderBlocks() {
-      subjectBlocks.innerHTML = '';
-      blocks.filter(b => ['available', 'core'].includes(b.status)).forEach(block => {
-        const div = document.createElement('div');
-        div.className = 'block';
-        div.innerHTML = `
-          <h3>${block.name}<span class="pill ${statusClass(block.status)}">${block.statusLabel}</span></h3>
-          <ul>${block.subjects.map(s => `<li>${s}</li>`).join('')}</ul>
-        `;
-        subjectBlocks.appendChild(div);
-      });
-    }
-
-    function renderRows() {
-      allRows.innerHTML = blocks.map(block => `
-        <tr>
-          <td><strong>${block.name}</strong></td>
-          <td><span class="pill ${statusClass(block.status)}">${block.statusLabel}</span></td>
-          <td>${block.subjects.join(', ')}</td>
-        </tr>
-      `).join('');
-    }
-
-    function setResult(type, title, message) {
+    function setResult(type, title, message, selected = '') {
       result.className = `result ${type}`;
-      result.innerHTML = `<strong>${title}</strong>${message}`;
+      result.innerHTML = `<strong>${title}</strong>${message}${selected ? `<div class="selected-line">Selected: ${selected}</div>` : ''}`;
     }
 
     function checkCombination() {
-      const a = findSubject(selectA.value);
-      const b = findSubject(selectB.value);
+      const selections = [blockD.value, blockE.value, blockF.value].filter(Boolean);
+      const selectedText = selections.length ? selections.join(' + ') : '';
 
-      if (!a || !b) {
-        setResult('warn', 'Choose two subjects', 'The checker will show whether the combination works.');
+      if (selections.length === 0) {
+        setResult('warn', 'Choose subjects', 'The checker will show whether the selected choices can be accommodated.');
         return;
       }
 
-      if (a.subject === b.subject && a.block.id === b.block.id) {
-        setResult('bad', 'Same subject selected twice', 'Choose two different subjects.');
+      const duplicates = selections.filter((subject, index) => selections.indexOf(subject) !== index);
+      if (duplicates.length) {
+        setResult('bad', 'Invalid combination', 'The same subject has been selected more than once.', selectedText);
         return;
       }
 
-      const unavailable = [a, b].filter(item => item.block.status === 'unavailable');
-      if (unavailable.length) {
-        setResult(
-          'bad',
-          'Not available for CP/BTEC combination',
-          `${unavailable.map(i => `${i.subject} is in ${i.block.name}`).join('; ')}. This block is marked as not available to BTEC students.`
-        );
-        return;
-      }
-
-      if (a.block.id === b.block.id) {
-        setResult(
-          'bad',
-          'Combination does not work',
-          `${a.subject} and ${b.subject} are both in ${a.block.name}, so they clash.`
-        );
-        return;
-      }
-
-      const referenceOnly = [a, b].filter(item => ['reference', 'core'].includes(item.block.status));
-      if (referenceOnly.length) {
-        setResult(
-          'warn',
-          'No block clash, but check the pathway rule',
-          `${a.subject} and ${b.subject} are in different blocks. However, ${referenceOnly.map(i => `${i.subject} is listed as ${i.block.statusLabel.toLowerCase()}`).join('; ')}, so confirm whether it should count as a selectable DP subject.`
-        );
-        return;
-      }
-
-      setResult(
-        'ok',
-        'Combination works',
-        `${a.subject} is in ${a.block.name} and ${b.subject} is in ${b.block.name}. These are different available CP option blocks.`
-      );
+      setResult('ok', 'Valid combination', 'These choices can be accommodated in the CP pathway.', selectedText);
     }
 
-    document.querySelectorAll('button[data-a][data-b]').forEach(btn => {
+    document.querySelectorAll('button[data-d][data-e][data-f]').forEach(btn => {
       btn.addEventListener('click', () => {
-        selectA.value = btn.dataset.a;
-        selectB.value = btn.dataset.b;
+        blockD.value = btn.dataset.d;
+        blockE.value = btn.dataset.e;
+        blockF.value = btn.dataset.f;
         checkCombination();
       });
     });
 
-    selectA.addEventListener('change', checkCombination);
-    selectB.addEventListener('change', checkCombination);
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      blockD.value = '';
+      blockE.value = '';
+      blockF.value = '';
+      checkCombination();
+    });
 
-    populateSelect(selectA);
-    populateSelect(selectB);
-    renderBlocks();
-    renderRows();
+    [blockD, blockE, blockF].forEach(select => select.addEventListener('change', checkCombination));
+
+    populateSelect(blockD, optionsByBlock.D);
+    populateSelect(blockE, optionsByBlock.E);
+    populateSelect(blockF, optionsByBlock.F);
     checkCombination();
   </script>
 </body>
