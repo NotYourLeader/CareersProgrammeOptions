@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CP Subject Combination Checker</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --panel: #ffffff;
+      --ink: #152033;
+      --muted: #64748b;
+      --line: #d7dce5;
+      --ok: #0f8a4b;
+      --bad: #b42318;
+      --warn: #b26a00;
+      --blue: #d9ecff;
+      --pink: #ffd7ef;
+      --yellow: #fff49a;
+      --green: #dcfce7;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 280px);
+      line-height: 1.45;
+    }
+
+    header {
+      padding: 28px 20px 18px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      max-width: 850px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin: 0;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(300px, 420px) 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.12rem;
+      padding: 18px 18px 0;
+    }
+
+    .card .body { padding: 16px 18px 18px; }
+
+    label {
+      font-weight: 700;
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    select, input[type="text"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 13px;
+      font-size: 1rem;
+      background: white;
+      color: var(--ink);
+    }
+
+    .form-row { margin-bottom: 14px; }
+
+    .quick-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 9px 12px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    button:hover { background: #f1f5f9; }
+
+    .result {
+      border-radius: 15px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      margin-top: 4px;
+    }
+
+    .result.ok {
+      background: #ecfdf3;
+      border-color: #b7e4c7;
+      color: #064e2f;
+    }
+
+    .result.bad {
+      background: #fff1f0;
+      border-color: #ffc9c2;
+      color: #7a271a;
+    }
+
+    .result.warn {
+      background: #fff8e1;
+      border-color: #ffe08a;
+      color: #6d4300;
+    }
+
+    .result strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    .subject-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+    }
+
+    .block {
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .block h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 0.78rem;
+      background: var(--blue);
+      color: #17446c;
+      white-space: nowrap;
+    }
+
+    .pill.available { background: var(--yellow); color: #3f3300; }
+    .pill.unavailable { background: var(--pink); color: #7a124f; }
+    .pill.core { background: var(--green); color: #14532d; }
+
+    ul {
+      margin: 0;
+      padding-left: 19px;
+    }
+
+    li { margin: 5px 0; }
+
+    .rules {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+    }
+
+    .rule {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: #f8fafc;
+    }
+
+    .rule strong { display: block; margin-bottom: 4px; }
+
+    .muted { color: var(--muted); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.94rem;
+      overflow: hidden;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { background: #f8fafc; }
+    tr:last-child td { border-bottom: 0; }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #eef2ff;
+      font-size: 0.82rem;
+      margin-left: 6px;
+      color: #3730a3;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CP Subject Combination Checker</h1>
+    <p class="subtitle">Select two subjects to check whether they can be taken together. The rule is simple: two subjects clash if they sit in the same DP block, and pink blocks from the source grid are treated as unavailable to BTEC/CP students.</p>
+  </header>
+
+  <main>
+    <section class="grid">
+      <div class="card">
+        <h2>Check a combination</h2>
+        <div class="body">
+          <div class="form-row">
+            <label for="subjectA">Subject 1</label>
+            <select id="subjectA"></select>
+          </div>
+
+          <div class="form-row">
+            <label for="subjectB">Subject 2</label>
+            <select id="subjectB"></select>
+          </div>
+
+          <div id="result" class="result warn">
+            <strong>Choose two subjects</strong>
+            The checker will show whether the combination works.
+          </div>
+
+          <div class="quick-buttons" aria-label="Quick examples">
+            <button type="button" data-a="Biology|D" data-b="Math AI|E">Biology + Math AI</button>
+            <button type="button" data-a="Biology|D" data-b="Chemistry|D">Biology + Chemistry</button>
+            <button type="button" data-a="Economics|F" data-b="Math A&A|E">Economics + Math A&A</button>
+            <button type="button" data-a="Psychology|C" data-b="Math AI|E">Psychology + Math AI</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Available CP/BTEC subject blocks</h2>
+        <div class="body">
+          <div class="subject-list" id="subjectBlocks"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Rules used by this checker</h2>
+      <div class="body rules">
+        <div class="rule"><strong>1. Same block = clash</strong><span class="muted">A student cannot take two subjects from the same block because they are timetabled at the same time.</span></div>
+        <div class="rule"><strong>2. Pink blocks are unavailable</strong><span class="muted">Block A and Block C are marked as not available to BTEC students in the source grid.</span></div>
+        <div class="rule"><strong>3. DP options for CP are D, E and F</strong><span class="muted">The highlighted options on the right of the source grid are DP Block D, DP Block E and DP Block F.</span></div>
+        <div class="rule"><strong>4. Core/BTEC items are listed separately</strong><span class="muted">BTEC Business, PPS, CE, MOE Arabic, Language and Cultural Studies, Islamic Studies / Study Hall are shown for reference, but the checker focuses on subject combinations.</span></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>All subjects in the source grid</h2>
+      <div class="body">
+        <table>
+          <thead>
+            <tr><th>Block</th><th>Status</th><th>Subjects</th></tr>
+          </thead>
+          <tbody id="allRows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const blocks = [
+      {
+        id: 'A',
+        name: 'Block A',
+        status: 'unavailable',
+        statusLabel: 'Not available to BTEC',
+        subjects: ['Lang & Lit', 'Lit & Perf']
+      },
+      {
+        id: 'B',
+        name: 'Block B',
+        status: 'reference',
+        statusLabel: 'Language options',
+        subjects: ['Arabic', 'French B', 'French Ab Initio', 'Spanish B', 'Self-taught']
+      },
+      {
+        id: 'C',
+        name: 'Block C',
+        status: 'unavailable',
+        statusLabel: 'Not available to BTEC',
+        subjects: ['Business Management', 'Economics', 'Global Politics', 'Psychology', 'Biology']
+      },
+      {
+        id: 'D',
+        name: 'DP Block D',
+        status: 'available',
+        statusLabel: 'Available CP option',
+        subjects: ['Biology', 'Chemistry', 'Physics', 'ESS', 'Global Politics', 'Computer Science', 'Design']
+      },
+      {
+        id: 'E',
+        name: 'DP Block E',
+        status: 'available',
+        statusLabel: 'Available CP option',
+        subjects: ['Math A&A', 'Math AI']
+      },
+      {
+        id: 'F',
+        name: 'DP Block F',
+        status: 'available',
+        statusLabel: 'Available CP option',
+        subjects: ['Visual Arts', 'Economics', 'Theatre', 'Biology / SEHS', 'Physics', 'Chemistry', 'Business Management']
+      },
+      {
+        id: 'G',
+        name: 'Block G',
+        status: 'core',
+        statusLabel: 'Core / reference',
+        subjects: ['ToK', 'Islamic Studies']
+      },
+      {
+        id: 'CORE',
+        name: 'CP / BTEC core',
+        status: 'core',
+        statusLabel: 'Core / reference',
+        subjects: ['BTEC Business', 'PPS', 'CE', 'MOE Arabic', 'Language and Cultural Studies', 'Islamic Studies / Study Hall']
+      }
+    ];
+
+    const selectA = document.getElementById('subjectA');
+    const selectB = document.getElementById('subjectB');
+    const result = document.getElementById('result');
+    const subjectBlocks = document.getElementById('subjectBlocks');
+    const allRows = document.getElementById('allRows');
+
+    function subjectKey(subject, blockId) {
+      return `${subject}|${blockId}`;
+    }
+
+    function allOptions() {
+      return blocks.flatMap(block => block.subjects.map(subject => ({ subject, block })));
+    }
+
+    function populateSelect(select) {
+      select.innerHTML = '<option value="">Select a subject</option>';
+      blocks.forEach(block => {
+        const group = document.createElement('optgroup');
+        group.label = `${block.name} — ${block.statusLabel}`;
+        block.subjects.forEach(subject => {
+          const opt = document.createElement('option');
+          opt.value = subjectKey(subject, block.id);
+          opt.textContent = `${subject} (${block.name})`;
+          group.appendChild(opt);
+        });
+        select.appendChild(group);
+      });
+    }
+
+    function findSubject(value) {
+      if (!value) return null;
+      const [subject, blockId] = value.split('|');
+      const block = blocks.find(b => b.id === blockId);
+      return block ? { subject, block } : null;
+    }
+
+    function statusClass(status) {
+      if (status === 'available') return 'available';
+      if (status === 'unavailable') return 'unavailable';
+      if (status === 'core') return 'core';
+      return '';
+    }
+
+    function renderBlocks() {
+      subjectBlocks.innerHTML = '';
+      blocks.filter(b => ['available', 'core'].includes(b.status)).forEach(block => {
+        const div = document.createElement('div');
+        div.className = 'block';
+        div.innerHTML = `
+          <h3>${block.name}<span class="pill ${statusClass(block.status)}">${block.statusLabel}</span></h3>
+          <ul>${block.subjects.map(s => `<li>${s}</li>`).join('')}</ul>
+        `;
+        subjectBlocks.appendChild(div);
+      });
+    }
+
+    function renderRows() {
+      allRows.innerHTML = blocks.map(block => `
+        <tr>
+          <td><strong>${block.name}</strong></td>
+          <td><span class="pill ${statusClass(block.status)}">${block.statusLabel}</span></td>
+          <td>${block.subjects.join(', ')}</td>
+        </tr>
+      `).join('');
+    }
+
+    function setResult(type, title, message) {
+      result.className = `result ${type}`;
+      result.innerHTML = `<strong>${title}</strong>${message}`;
+    }
+
+    function checkCombination() {
+      const a = findSubject(selectA.value);
+      const b = findSubject(selectB.value);
+
+      if (!a || !b) {
+        setResult('warn', 'Choose two subjects', 'The checker will show whether the combination works.');
+        return;
+      }
+
+      if (a.subject === b.subject && a.block.id === b.block.id) {
+        setResult('bad', 'Same subject selected twice', 'Choose two different subjects.');
+        return;
+      }
+
+      const unavailable = [a, b].filter(item => item.block.status === 'unavailable');
+      if (unavailable.length) {
+        setResult(
+          'bad',
+          'Not available for CP/BTEC combination',
+          `${unavailable.map(i => `${i.subject} is in ${i.block.name}`).join('; ')}. This block is marked as not available to BTEC students.`
+        );
+        return;
+      }
+
+      if (a.block.id === b.block.id) {
+        setResult(
+          'bad',
+          'Combination does not work',
+          `${a.subject} and ${b.subject} are both in ${a.block.name}, so they clash.`
+        );
+        return;
+      }
+
+      const referenceOnly = [a, b].filter(item => ['reference', 'core'].includes(item.block.status));
+      if (referenceOnly.length) {
+        setResult(
+          'warn',
+          'No block clash, but check the pathway rule',
+          `${a.subject} and ${b.subject} are in different blocks. However, ${referenceOnly.map(i => `${i.subject} is listed as ${i.block.statusLabel.toLowerCase()}`).join('; ')}, so confirm whether it should count as a selectable DP subject.`
+        );
+        return;
+      }
+
+      setResult(
+        'ok',
+        'Combination works',
+        `${a.subject} is in ${a.block.name} and ${b.subject} is in ${b.block.name}. These are different available CP option blocks.`
+      );
+    }
+
+    document.querySelectorAll('button[data-a][data-b]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectA.value = btn.dataset.a;
+        selectB.value = btn.dataset.b;
+        checkCombination();
+      });
+    });
+
+    selectA.addEventListener('change', checkCombination);
+    selectB.addEventListener('change', checkCombination);
+
+    populateSelect(selectA);
+    populateSelect(selectB);
+    renderBlocks();
+    renderRows();
+    checkCombination();
+  </script>
+</body>
+</html>
