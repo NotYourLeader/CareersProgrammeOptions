@@ -8,18 +8,17 @@
     :root {
       --bg: #f6f7fb;
       --panel: #ffffff;
-      --ink: #152033;
+      --ink: #102033;
       --muted: #64748b;
       --line: #d7dce5;
+      --header: #064a55;
       --ok: #0f8a4b;
       --bad: #b42318;
       --warn: #b26a00;
       --soft-ok: #ecfdf3;
       --soft-bad: #fff1f0;
       --soft-warn: #fff8e1;
-      --accent: #2563eb;
-      --pink: #f05ac2;
-      --blue: #a9cdea;
+      --soft-info: #eff6ff;
       --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
       --radius: 18px;
     }
@@ -34,32 +33,29 @@
       line-height: 1.45;
     }
 
-    header {
-      max-width: 1220px;
+    header, main {
+      max-width: 1360px;
       margin: 0 auto;
-      padding: 30px 20px 18px;
+      padding-left: 20px;
+      padding-right: 20px;
     }
+
+    header { padding-top: 30px; padding-bottom: 18px; }
 
     h1 {
       margin: 0 0 8px;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
       letter-spacing: -0.04em;
     }
 
     .subtitle {
-      max-width: 880px;
+      max-width: 980px;
       color: var(--muted);
       font-size: 1.05rem;
       margin: 0;
     }
 
-    main {
-      max-width: 1220px;
-      margin: 0 auto;
-      padding: 0 20px 42px;
-      display: grid;
-      gap: 18px;
-    }
+    main { padding-bottom: 42px; display: grid; gap: 18px; }
 
     .card {
       background: var(--panel);
@@ -69,12 +65,7 @@
       overflow: hidden;
     }
 
-    .card h2 {
-      margin: 0;
-      font-size: 1.12rem;
-      padding: 18px 18px 0;
-    }
-
+    .card h2 { margin: 0; font-size: 1.12rem; padding: 18px 18px 0; }
     .body { padding: 16px 18px 18px; }
 
     .table-wrap {
@@ -87,14 +78,14 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 1080px;
+      min-width: 1180px;
       table-layout: fixed;
     }
 
     th, td {
       border-right: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
-      padding: 11px;
+      padding: 10px;
       vertical-align: top;
     }
 
@@ -102,74 +93,101 @@
     tr:last-child td { border-bottom: none; }
 
     th {
-      text-align: left;
-      background: #edf2f7;
+      text-align: center;
+      background: var(--header);
+      color: white;
       font-size: 0.95rem;
       letter-spacing: 0.01em;
     }
 
-    td {
-      min-height: 116px;
-      font-size: 0.98rem;
-    }
+    td { min-height: 148px; font-size: 0.94rem; background: #fbfdff; }
+    td.choice-block { background: #ffffff; }
+    td.fixed-block { background: #f8fafc; }
 
-    .fixed-pathway {
-      background: #f8fafc;
-      color: #243044;
-    }
-
-    .not-available {
-      background: #fff7fc;
-      border-top: 5px solid var(--pink);
-    }
-
-    .available-choice {
-      background: #f6fbff;
-      border-top: 5px solid var(--blue);
-    }
-
-    .cell-title {
-      display: block;
-      color: var(--muted);
-      font-size: 0.78rem;
-      font-weight: 700;
-      margin-bottom: 7px;
+    .cell-kicker {
+      font-size: 0.72rem;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      font-weight: 800;
+      margin-bottom: 7px;
     }
 
-    .subject-list {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      display: grid;
-      gap: 6px;
+    .fixed-offer {
+      border: 1px solid #b7d4ff;
+      background: var(--soft-info);
+      color: #0f3d75;
+      border-radius: 12px;
+      padding: 9px 10px;
+      font-weight: 800;
+      margin-bottom: 8px;
     }
 
-    .subject-list li {
-      padding: 3px 0;
+    .locked-note {
+      border: 1px solid #e2e8f0;
+      background: #f1f5f9;
+      color: #334155;
+      border-radius: 12px;
+      padding: 8px 10px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 10px;
     }
 
     label {
-      font-weight: 700;
+      font-weight: 800;
       display: block;
-      margin-bottom: 7px;
+      margin-bottom: 6px;
+      color: #243044;
     }
 
     select {
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 11px 12px;
-      font-size: 0.98rem;
+      padding: 10px;
+      font-size: 0.94rem;
       background: white;
       color: var(--ink);
     }
 
-    .helper {
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-top: 8px;
+    .unavailable-title {
+      margin-top: 10px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #7f1d1d;
+      font-weight: 800;
+    }
+
+    .block-list {
+      margin: 8px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 4px;
+      color: #334155;
+      font-size: 0.83rem;
+      max-height: none;
+      overflow: visible;
+    }
+
+    .block-list li { border-bottom: 1px dotted #e5e7eb; padding-bottom: 3px; }
+    .block-list li:last-child { border-bottom: none; }
+    .missed-list { color: #7f1d1d; opacity: 0.88; }
+
+    .additional-row td { background: #f8fafc; font-size: 0.92rem; }
+    .additional-empty { color: var(--muted); font-size: 0.84rem; font-style: italic; }
+
+    .mini-pill {
+      display: inline-block;
+      border: 1px solid #d9ead3;
+      background: #f0fdf4;
+      color: #166534;
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-weight: 700;
+      margin: 0 4px 4px 0;
     }
 
     .result {
@@ -180,42 +198,36 @@
       font-size: 1rem;
     }
 
-    .result.ok {
-      background: var(--soft-ok);
-      border-color: #b7e4c7;
-      color: #064e2f;
-    }
+    .result.ok { background: var(--soft-ok); border-color: #b7e4c7; color: #064e2f; }
+    .result.bad { background: var(--soft-bad); border-color: #ffc9c2; color: #7a271a; }
+    .result.warn { background: var(--soft-warn); border-color: #ffe08a; color: #6d4300; }
+    .result strong { display: block; font-size: 1.22rem; margin-bottom: 4px; }
 
-    .result.bad {
-      background: var(--soft-bad);
-      border-color: #ffc9c2;
-      color: #7a271a;
-    }
-
-    .result.warn {
-      background: var(--soft-warn);
-      border-color: #ffe08a;
-      color: #6d4300;
-    }
-
-    .result strong {
-      display: block;
-      font-size: 1.22rem;
-      margin-bottom: 4px;
-    }
-
-    .selected-line {
-      color: inherit;
-      opacity: 0.85;
-      margin-top: 6px;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
+    .selected-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 8px;
-      margin-top: 14px;
+      margin-top: 12px;
     }
+
+    .selected-pill {
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 12px;
+      padding: 9px 10px;
+      background: rgba(255,255,255,0.65);
+    }
+
+    .selected-pill span {
+      display: block;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      opacity: 0.75;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 
     button {
       border: 1px solid var(--line);
@@ -228,12 +240,7 @@
     }
 
     button:hover { background: #f1f5f9; }
-
-    .note {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-top: 10px;
-    }
+    .note { color: var(--muted); font-size: 0.92rem; margin-top: 10px; }
 
     @media (max-width: 720px) {
       header, main { padding-left: 12px; padding-right: 12px; }
@@ -244,14 +251,14 @@
 <body>
   <header>
     <h1>CP Subject Combination Checker</h1>
-    <p class="subtitle">Use the three dropdowns to test whether the student's CP subject choices can be accommodated. Fixed CP components are shown for context; only the available choice blocks are selectable.</p>
+    <p class="subtitle">Blocks A, B and C are fixed for CP students and cannot be selected. Only Blocks D, E and F contain student subject choices.</p>
   </header>
 
   <main>
     <section class="card">
-      <h2>Horizontal pathway view</h2>
+      <h2>Current CP offer structure</h2>
       <div class="body">
-        <div class="table-wrap" aria-label="CP subject pathway table">
+        <div class="table-wrap" aria-label="CP subject block table">
           <table>
             <thead>
               <tr>
@@ -261,148 +268,304 @@
                 <th>Block D</th>
                 <th>Block E</th>
                 <th>Block F</th>
-                <th>Block G</th>
-                <th>Other</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="fixed-pathway not-available">
-                  <span class="cell-title">Fixed / unavailable for choice</span>
-                  <ul class="subject-list">
-                    <li>BTEC Business</li>
-                  </ul>
-                </td>
-                <td class="fixed-pathway not-available">
-                  <span class="cell-title">Fixed / unavailable for choice</span>
-                  <ul class="subject-list">
-                    <li>PPS</li>
-                    <li>Community Engagement</li>
-                    <li>MOE Arabic</li>
-                  </ul>
-                </td>
-                <td class="fixed-pathway not-available">
-                  <span class="cell-title">Fixed / unavailable for choice</span>
-                  <ul class="subject-list">
-                    <li>BTEC Business</li>
-                  </ul>
-                </td>
-                <td class="available-choice">
-                  <label for="blockD">Student choice</label>
-                  <select id="blockD"></select>
-                  <div class="helper">Choose one subject.</div>
-                </td>
-                <td class="available-choice">
-                  <label for="blockE">Student choice</label>
-                  <select id="blockE"></select>
-                  <div class="helper">Choose one subject.</div>
-                </td>
-                <td class="available-choice">
-                  <label for="blockF">Student choice</label>
-                  <select id="blockF"></select>
-                  <div class="helper">Choose one subject.</div>
-                </td>
-                <td class="fixed-pathway not-available">
-                  <span class="cell-title">Fixed / unavailable for choice</span>
-                  <ul class="subject-list">
-                    <li>Language and Cultural Studies</li>
-                    <li>MOE Arabic</li>
-                  </ul>
-                </td>
-                <td class="fixed-pathway not-available">
-                  <span class="cell-title">Fixed / unavailable for choice</span>
-                  <ul class="subject-list">
-                    <li>Islamic Studies</li>
-                    <li>Study Hall</li>
-                  </ul>
-                </td>
-              </tr>
+              <tr id="offerRow"></tr>
+              <tr class="additional-row" id="additionalFixedRow"></tr>
             </tbody>
           </table>
         </div>
 
-        <div class="actions" aria-label="Quick examples">
-          <button type="button" data-d="Biology" data-e="Math AI" data-f="Chemistry">Biology + Math AI + Chemistry</button>
-          <button type="button" data-d="Physics" data-e="Math A&amp;A" data-f="Chemistry">Physics + Math A&amp;A + Chemistry</button>
-          <button type="button" data-d="ESS" data-e="Math AI" data-f="Visual Arts">ESS + Math AI + Visual Arts</button>
-          <button type="button" data-d="Design" data-e="Math AI" data-f="Business Management">Design + Math AI + Business Management</button>
+        <div class="actions" aria-label="Actions">
           <button type="button" id="clearBtn">Clear choices</button>
+          <button type="button" id="exampleScienceBtn">Example: Biology + Chemistry + Physics</button>
+          <button type="button" id="exampleBusinessBtn">Example: Business + Global Politics + Visual Arts</button>
         </div>
 
         <div id="result" class="result warn">
           <strong>Choose subjects</strong>
-          The checker will show whether the selected choices can be accommodated.
+          The checker will show whether the selected D/E/F combination can be accommodated.
         </div>
+
+        <p class="note">Version: CP D/E/F-only checker. There are no dropdowns in Blocks A, B or C.</p>
       </div>
     </section>
   </main>
 
   <script>
-    const optionsByBlock = {
-      D: ['Biology', 'Chemistry', 'Physics', 'ESS', 'Global Politics', 'Computer Science', 'Design'],
-      E: ['Math A&A', 'Math AI'],
-      F: ['Visual Arts', 'Economics', 'Theatre', 'Biology', 'Physics', 'Chemistry', 'SEHS', 'Business Management']
+    const fixedBlocks = {
+      A: {
+        fixed: ['BTEC Business'],
+        missed: [
+          'Eng L&L HL.1 (11)',
+          'Eng L&L SL.1 (12)',
+          'Eng L&L SL.3 (11)',
+          'Eng Lit & Perf SL (15)',
+          'Eng Literature MX (3)',
+          'Self-study MT Lit SL (1)',
+          'Spanish Ab Initio SL.2 (16)',
+          'Spanish B MX.1 (13)'
+        ]
+      },
+      B: {
+        fixed: ['PPS', 'Community Engagement', 'MOE Arabic'],
+        missed: [
+          'Arabic B MX (17)',
+          'Eng L&L HL.2 (14)',
+          'Eng L&L SL.2 (15)',
+          'French Ab Initio SL (3)',
+          'French B MX (19)',
+          'Spanish Ab Initio SL.1 (4)',
+          'Spanish B MX.2 (10)'
+        ]
+      },
+      C: {
+        fixed: ['BTEC Business'],
+        missed: [
+          'Business MX.1 (10)',
+          'Economics MX.1 (8)',
+          'Maths AA HL.1 (16)',
+          'Maths AA SL (16)',
+          'Maths AI HL (14)',
+          'Maths AI SL.2 (18)'
+        ]
+      }
     };
 
-    const blockD = document.getElementById('blockD');
-    const blockE = document.getElementById('blockE');
-    const blockF = document.getElementById('blockF');
+    const choiceBlocks = {
+      D: [
+        'Business MX.2 (14)',
+        'Economics MX.2 (15)',
+        'Global Politics MX (19)',
+        'Maths AA HL.2 (7)',
+        'Maths AI SL.1 (11)',
+        'Psychology MX (16)',
+        'Biology MX.2 (16)'
+      ],
+      E: [
+        'Biology MX.1 (16)',
+        'Chemistry MX.1 (15)',
+        'Computer Science (10)',
+        'Design Technology (5)',
+        'ESS (4)',
+        'Physics MX.1 (16)',
+        'Global Politics MX.2'
+      ],
+      F: [
+        'Biology MX.3 (11)',
+        'Business MX.3 (14)',
+        'Chemistry MX.2 (14)',
+        'Economics MX.3 (9)',
+        'Music (1)',
+        'Physics MX.2 (10)',
+        'SEHS (4)',
+        'Theatre (6)',
+        'Visual Arts (13)'
+      ]
+    };
+
+    const allBlocks = ['A', 'B', 'C', 'D', 'E', 'F'];
+    const selectableBlocks = ['D', 'E', 'F'];
+    const selects = {};
+    const offerRow = document.getElementById('offerRow');
+    const additionalFixedRow = document.getElementById('additionalFixedRow');
     const result = document.getElementById('result');
 
-    function populateSelect(select, options) {
-      select.innerHTML = '<option value="">No choice selected</option>';
-      options.forEach(subject => {
-        const opt = document.createElement('option');
-        opt.value = subject;
-        opt.textContent = subject;
-        select.appendChild(opt);
-      });
+    const additionalFixedProvision = {
+      A: [],
+      B: ['Language and cultural studies', 'MOE Arabic'],
+      C: [],
+      D: [],
+      E: [],
+      F: ['Islamic Studies / Study Hall']
+    };
+
+    function subjectKey(label) {
+      return label
+        .replace(/\s*\([^)]*\)\s*$/g, '')
+        .replace(/\bMX\.\d+\b/g, 'MX')
+        .replace(/\bHL\.\d+\b/g, 'HL')
+        .replace(/\bSL\.\d+\b/g, 'SL')
+        .trim();
     }
 
-    function setResult(type, title, message, selected = '') {
+    function displayName(label) {
+      return label.replace(/\s*\([^)]*\)\s*$/g, '').trim();
+    }
+
+    function makeFixedCell(blockName, config) {
+      const td = document.createElement('td');
+      td.className = 'fixed-block';
+
+      const kicker = document.createElement('div');
+      kicker.className = 'cell-kicker';
+      kicker.textContent = 'Fixed CP provision';
+      td.appendChild(kicker);
+
+      config.fixed.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'fixed-offer';
+        div.textContent = item;
+        td.appendChild(div);
+      });
+
+      const locked = document.createElement('div');
+      locked.className = 'locked-note';
+      locked.textContent = `Block ${blockName} is not a CP subject-choice block.`;
+      td.appendChild(locked);
+
+      const missedTitle = document.createElement('div');
+      missedTitle.className = 'unavailable-title';
+      missedTitle.textContent = 'DP-only options not available to CP';
+      td.appendChild(missedTitle);
+
+      const ul = document.createElement('ul');
+      ul.className = 'block-list missed-list';
+      config.missed.forEach(optionText => {
+        const li = document.createElement('li');
+        li.textContent = optionText;
+        ul.appendChild(li);
+      });
+      td.appendChild(ul);
+
+      return td;
+    }
+
+    function makeChoiceCell(blockName, options) {
+      const td = document.createElement('td');
+      td.className = 'choice-block';
+
+      const label = document.createElement('label');
+      label.setAttribute('for', `block${blockName}`);
+      label.textContent = 'Student choice';
+
+      const select = document.createElement('select');
+      select.id = `block${blockName}`;
+      select.innerHTML = '<option value="">No choice selected</option>';
+      options.forEach(optionText => {
+        const option = document.createElement('option');
+        option.value = optionText;
+        option.textContent = optionText;
+        select.appendChild(option);
+      });
+      select.addEventListener('change', checkCombination);
+      selects[blockName] = select;
+
+      const kicker = document.createElement('div');
+      kicker.className = 'cell-kicker';
+      kicker.style.marginTop = '10px';
+      kicker.textContent = 'Available options';
+
+      const ul = document.createElement('ul');
+      ul.className = 'block-list available-list';
+      options.forEach(optionText => {
+        const li = document.createElement('li');
+        li.textContent = optionText;
+        ul.appendChild(li);
+      });
+
+      td.appendChild(label);
+      td.appendChild(select);
+      td.appendChild(kicker);
+      td.appendChild(ul);
+      return td;
+    }
+
+    function makeAdditionalFixedCell(blockName) {
+      const td = document.createElement('td');
+      td.className = 'fixed-block';
+      const items = additionalFixedProvision[blockName] || [];
+      if (!items.length) {
+        const empty = document.createElement('div');
+        empty.className = 'additional-empty';
+        empty.textContent = 'No additional fixed CP provision shown in this block';
+        td.appendChild(empty);
+        return td;
+      }
+
+      const kicker = document.createElement('div');
+      kicker.className = 'cell-kicker';
+      kicker.textContent = 'Additional fixed CP provision';
+      td.appendChild(kicker);
+
+      items.forEach(item => {
+        const span = document.createElement('span');
+        span.className = 'mini-pill';
+        span.textContent = item;
+        td.appendChild(span);
+      });
+
+      return td;
+    }
+
+    function setResult(type, title, message, selections = []) {
       result.className = `result ${type}`;
-      result.innerHTML = `<strong>${title}</strong>${message}${selected ? `<div class="selected-line">Selected: ${selected}</div>` : ''}`;
+      let selectedHtml = '';
+      if (selections.length) {
+        selectedHtml = '<div class="selected-grid">' + selections.map(item => `
+          <div class="selected-pill"><span>Block ${item.block}</span>${displayName(item.subject)}</div>
+        `).join('') + '</div>';
+      }
+      result.innerHTML = `<strong>${title}</strong>${message}${selectedHtml}`;
     }
 
     function checkCombination() {
-      const selections = [blockD.value, blockE.value, blockF.value].filter(Boolean);
-      const selectedText = selections.length ? selections.join(' + ') : '';
+      const selections = selectableBlocks
+        .map(block => ({ block, subject: selects[block].value }))
+        .filter(item => item.subject);
 
-      if (selections.length === 0) {
-        setResult('warn', 'Choose subjects', 'The checker will show whether the selected choices can be accommodated.');
+      if (!selections.length) {
+        setResult('warn', 'Choose subjects', 'Select the student’s choices from Blocks D, E and F. Blocks A, B and C are fixed and cannot be selected.');
         return;
       }
 
-      const duplicates = selections.filter((subject, index) => selections.indexOf(subject) !== index);
+      const seen = new Map();
+      const duplicates = [];
+      selections.forEach(item => {
+        const key = subjectKey(item.subject);
+        if (seen.has(key)) duplicates.push({ key, first: seen.get(key), second: item });
+        else seen.set(key, item);
+      });
+
       if (duplicates.length) {
-        setResult('bad', 'Invalid combination', 'The same subject has been selected more than once.', selectedText);
+        const duplicateText = duplicates.map(d => `${displayName(d.first.subject)} in Block ${d.first.block} and ${displayName(d.second.subject)} in Block ${d.second.block}`).join('; ');
+        setResult('bad', 'Invalid combination', `The same subject appears more than once: ${duplicateText}.`, selections);
         return;
       }
 
-      setResult('ok', 'Valid combination', 'These choices can be accommodated in the CP pathway.', selectedText);
+      const title = selections.length < 3 ? 'Valid partial combination' : 'Valid combination';
+      const message = selections.length < 3
+        ? 'The selected subjects can be accommodated so far. Add the remaining choices to check the full D/E/F combination.'
+        : 'These selected subjects can be accommodated in the current CP offer structure.';
+      setResult('ok', title, message, selections);
     }
 
-    document.querySelectorAll('button[data-d][data-e][data-f]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        blockD.value = btn.dataset.d;
-        blockE.value = btn.dataset.e;
-        blockF.value = btn.dataset.f;
-        checkCombination();
-      });
+    function setExample(example) {
+      selectableBlocks.forEach(block => { selects[block].value = example[block] || ''; });
+      checkCombination();
+    }
+
+    allBlocks.forEach(block => {
+      if (fixedBlocks[block]) offerRow.appendChild(makeFixedCell(block, fixedBlocks[block]));
+      else offerRow.appendChild(makeChoiceCell(block, choiceBlocks[block]));
     });
 
+    allBlocks.forEach(block => additionalFixedRow.appendChild(makeAdditionalFixedCell(block)));
+
     document.getElementById('clearBtn').addEventListener('click', () => {
-      blockD.value = '';
-      blockE.value = '';
-      blockF.value = '';
+      selectableBlocks.forEach(block => selects[block].value = '');
       checkCombination();
     });
 
-    [blockD, blockE, blockF].forEach(select => select.addEventListener('change', checkCombination));
+    document.getElementById('exampleScienceBtn').addEventListener('click', () => {
+      setExample({ D: 'Biology MX.2 (16)', E: 'Chemistry MX.1 (15)', F: 'Physics MX.2 (10)' });
+    });
 
-    populateSelect(blockD, optionsByBlock.D);
-    populateSelect(blockE, optionsByBlock.E);
-    populateSelect(blockF, optionsByBlock.F);
+    document.getElementById('exampleBusinessBtn').addEventListener('click', () => {
+      setExample({ D: 'Business MX.2 (14)', E: 'Global Politics MX.2', F: 'Visual Arts (13)' });
+    });
+
     checkCombination();
   </script>
 </body>
